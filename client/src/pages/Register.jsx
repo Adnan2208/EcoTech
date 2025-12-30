@@ -22,6 +22,7 @@ import {
   Email,
   Lock,
   Person,
+  VpnKey,
 } from '@mui/icons-material';
 
 const Register = () => {
@@ -30,6 +31,7 @@ const Register = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [role, setRole] = useState('citizen');
+  const [authorityCode, setAuthorityCode] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -50,10 +52,15 @@ const Register = () => {
       return;
     }
 
+    if (role === 'authority' && !authorityCode.trim()) {
+      setError('Authority verification code is required');
+      return;
+    }
+
     setLoading(true);
 
     try {
-      const user = await register(name, email, password, role);
+      const user = await register(name, email, password, role, authorityCode);
       if (user.role === 'authority') {
         navigate('/dashboard');
       } else {
@@ -176,6 +183,25 @@ const Register = () => {
                 <MenuItem value="authority">Authority</MenuItem>
               </Select>
             </FormControl>
+            {role === 'authority' && (
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                label="Authority Verification Code"
+                type="password"
+                value={authorityCode}
+                onChange={(e) => setAuthorityCode(e.target.value)}
+                helperText="Enter the verification code provided by your organization"
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <VpnKey color="action" />
+                    </InputAdornment>
+                  ),
+                }}
+              />
+            )}
             <Button
               type="submit"
               fullWidth

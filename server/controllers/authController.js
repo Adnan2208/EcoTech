@@ -6,7 +6,7 @@ const validator = require('validator');
 // @access  Public
 exports.register = async (req, res) => {
   try {
-    const { name, email, password, role } = req.body;
+    const { name, email, password, role, authorityCode } = req.body;
 
     // Validate email
     if (!validator.isEmail(email)) {
@@ -14,6 +14,17 @@ exports.register = async (req, res) => {
         success: false,
         message: 'Please provide a valid email',
       });
+    }
+
+    // Validate authority code if registering as authority
+    if (role === 'authority') {
+      const validAuthorityCode = process.env.AUTHORITY_CODE || 'eco-authority-2024';
+      if (!authorityCode || authorityCode !== validAuthorityCode) {
+        return res.status(400).json({
+          success: false,
+          message: 'Invalid authority verification code',
+        });
+      }
     }
 
     // Check if user exists

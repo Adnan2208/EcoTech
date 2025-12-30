@@ -171,6 +171,10 @@ exports.updateReport = async (req, res) => {
       updateData.resolvedAt = new Date();
       updateData.resolvedBy = req.user.id;
       updateData.resolutionNotes = resolutionNotes || '';
+      // Add resolution images if uploaded
+      if (req.uploadedImages && req.uploadedImages.length > 0) {
+        updateData.resolutionImages = req.uploadedImages;
+      }
     }
 
     report = await Report.findByIdAndUpdate(req.params.id, updateData, {

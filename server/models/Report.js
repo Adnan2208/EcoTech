@@ -74,6 +74,18 @@ const reportSchema = new mongoose.Schema(
       type: String,
       default: '',
     },
+    resolutionImages: [
+      {
+        url: {
+          type: String,
+          required: true,
+        },
+        publicId: {
+          type: String,
+          required: true,
+        },
+      },
+    ],
   },
   {
     timestamps: true,

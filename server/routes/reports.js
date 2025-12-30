@@ -22,7 +22,7 @@ router.get('/:id', getReport);
 // Protected routes with dynamic id
 router.delete('/:id', protect, deleteReport);
 
-// Authority only routes
-router.put('/:id', protect, authorize('authority'), updateReport);
+// Authority only routes (with optional resolution images upload)
+router.put('/:id', protect, authorize('authority'), upload.array('resolutionImages', 5), uploadImages, updateReport);
 
 module.exports = router;

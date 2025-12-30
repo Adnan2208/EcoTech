@@ -9,6 +9,7 @@ import MapView from '@/pages/MapView';
 import ReportForm from '@/pages/ReportForm';
 import MyReports from '@/pages/MyReports';
 import Dashboard from '@/pages/Dashboard';
+import ReportDetail from '@/pages/ReportDetail';
 
 const theme = createTheme({
   palette: {
@@ -48,6 +49,14 @@ function App() {
                 element={
                   <ProtectedRoute>
                     <MyReports />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="report/:id"
+                element={
+                  <ProtectedRoute>
+                    <ReportDetail />
                   </ProtectedRoute>
                 }
               />
