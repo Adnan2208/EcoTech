@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { ThemeProvider, createTheme, CssBaseline } from '@mui/material';
+import { ThemeProvider, CssBaseline } from '@mui/material';
+import theme from '@/theme/theme';
 import { AuthProvider } from '@/contexts/AuthContext';
 import Layout from '@/components/common/Layout';
 import ProtectedRoute from '@/components/common/ProtectedRoute';
@@ -10,20 +11,6 @@ import ReportForm from '@/pages/ReportForm';
 import MyReports from '@/pages/MyReports';
 import Dashboard from '@/pages/Dashboard';
 import ReportDetail from '@/pages/ReportDetail';
-
-const theme = createTheme({
-  palette: {
-    primary: {
-      main: '#2e7d32',
-    },
-    secondary: {
-      main: '#ff9800',
-    },
-  },
-  typography: {
-    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
-  },
-});
 
 function App() {
   return (

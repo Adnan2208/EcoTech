@@ -28,7 +28,7 @@ import {
   Person as PersonIcon,
   Logout as LogoutIcon,
   Login as LoginIcon,
-  DeleteSweep as WasteIcon,
+  Recycling as RecyclingIcon,
 } from '@mui/icons-material';
 
 const Navbar = () => {
@@ -55,7 +55,7 @@ const Navbar = () => {
   const navItems = [
     { label: 'Map', path: '/', icon: <MapIcon /> },
     { label: 'Report Waste', path: '/report', icon: <AddIcon />, auth: true },
-    { label: 'My Reports', path: '/my-reports', icon: <WasteIcon />, auth: true },
+    { label: 'My Reports', path: '/my-reports', icon: <PersonIcon />, auth: true },
     { label: 'Dashboard', path: '/dashboard', icon: <DashboardIcon />, authority: true },
   ];
 
@@ -69,7 +69,7 @@ const Navbar = () => {
     <AppBar position="static" sx={{ bgcolor: '#2e7d32' }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <WasteIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+          <RecyclingIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
           <Typography
             variant="h6"
             noWrap
@@ -96,7 +96,7 @@ const Navbar = () => {
             </IconButton>
           </Box>
 
-          <WasteIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+          <RecyclingIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
           <Typography
             variant="h5"
             noWrap
