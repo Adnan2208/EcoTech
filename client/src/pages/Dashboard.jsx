@@ -377,7 +377,7 @@ const Dashboard = () => {
                 <Typography variant="h6" fontWeight={600} gutterBottom>
                   Reports by Category
                 </Typography>
-                <Box sx={{ height: 320 }}>
+                <Box sx={{ height: 280 }}>
                   <ResponsiveContainer width="100%" height="100%">
                     <BarChart data={categoryData} layout="vertical" margin={{ left: 20 }}>
                       <CartesianGrid strokeDasharray="3 3" horizontal={true} vertical={false} />
