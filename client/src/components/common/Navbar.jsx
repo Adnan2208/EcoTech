@@ -66,76 +66,85 @@ const Navbar = () => {
   });
 
   return (
-    <AppBar position="static" sx={{ bgcolor: '#2e7d32' }}>
+    <AppBar
+      position="static"
+      elevation={0}
+      sx={{
+        backgroundImage: 'linear-gradient(135deg, rgb(5, 150, 105) 0%, rgb(4, 120, 87) 100%)',
+        color: 'white',
+        borderBottom: (theme) => `1px solid ${theme.palette.primary.dark}`,
+      }}
+    >
       <Container maxWidth="xl">
-        <Toolbar disableGutters>
-          <RecyclingIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
-          <Typography
-            variant="h6"
-            noWrap
-            component={Link}
-            to="/"
-            sx={{
-              mr: 2,
-              display: { xs: 'none', md: 'flex' },
-              fontWeight: 700,
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-            EcoReport
-          </Typography>
-
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-            <IconButton
-              size="large"
-              onClick={() => setDrawerOpen(true)}
-              color="inherit"
+        <Toolbar
+          disableGutters
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            minHeight: 64,
+            px: { xs: 1, sm: 2 },
+          }}
+        >
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+            <RecyclingIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 0, fontSize: 28 }} />
+            <Typography
+              variant="h6"
+              noWrap
+              component={Link}
+              to="/"
+              sx={{
+                mr: 2,
+                display: { xs: 'none', md: 'flex' },
+                fontWeight: 700,
+                color: 'inherit',
+                textDecoration: 'none',
+                alignItems: 'center',
+              }}
             >
-              <MenuIcon />
-            </IconButton>
+              EcoReport
+            </Typography>
           </Box>
 
-          <RecyclingIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
-          <Typography
-            variant="h5"
-            noWrap
-            component={Link}
-            to="/"
-            sx={{
-              mr: 2,
-              display: { xs: 'flex', md: 'none' },
-              flexGrow: 1,
-              fontWeight: 700,
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-            EcoReport
-          </Typography>
+          {/* mobile menu button + brand for small screens */}
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+            <Box sx={{ display: { xs: 'flex', md: 'none' }, alignItems: 'center', gap: 1 }}>
+              <RecyclingIcon sx={{ fontSize: 24 }} />
+            </Box>
 
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {filteredNavItems.map((item) => (
-              <Button
-                key={item.path}
-                component={Link}
-                to={item.path}
-                sx={{
-                  my: 2,
-                  color: 'white',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: 0.5,
-                  bgcolor: location.pathname === item.path ? 'rgba(255,255,255,0.1)' : 'transparent',
-                }}
-              >
-                {item.icon}
-                {item.label}
-              </Button>
-            ))}
-          </Box>
+            <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
+              <IconButton size="large" onClick={() => setDrawerOpen(true)} color="inherit">
+                <MenuIcon />
+              </IconButton>
+            </Box>
 
-          <Box sx={{ flexGrow: 0 }}>
+            {/* nav items for md+ */}
+            <Box sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'center', gap: 1 }}>
+              {filteredNavItems.map((item) => (
+                <Button
+                  key={item.path}
+                  component={Link}
+                  to={item.path}
+                  sx={{
+                    minHeight: 40,
+                    px: 2,
+                    color: 'white',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 1,
+                    bgcolor: location.pathname === item.path ? 'rgba(255,255,255,0.08)' : 'transparent',
+                    borderRadius: 2,
+                    textTransform: 'none',
+                    fontWeight: 600,
+                  }}
+                >
+                  {item.icon}
+                  {item.label}
+                </Button>
+              ))}
+            </Box>
+
+            <Box sx={{ ml: 2, display: 'flex', alignItems: 'center', gap: 1 }}>
             {user ? (
               <>
                 <Tooltip title="Account">
@@ -179,8 +188,9 @@ const Navbar = () => {
                 Login
               </Button>
             )}
-          </Box>
-        </Toolbar>
+              </Box>
+            </Box>
+          </Toolbar>
       </Container>
 
       <Drawer

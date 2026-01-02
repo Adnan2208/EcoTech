@@ -103,7 +103,7 @@ const Login = () => {
                 justifyContent: 'center',
               }}
             >
-              <Eco sx={{ fontSize: 36, color: 'white' }} />
+              <Recycling sx={{ fontSize: 36, color: 'white' }} />
             </Box>
             <Box>
               <Typography variant="h4" sx={{ color: 'white', fontWeight: 800 }}>
@@ -197,7 +197,7 @@ const Login = () => {
                 justifyContent: 'center',
               }}
             >
-              <Eco sx={{ color: 'white', fontSize: 26 }} />
+              <Recycling sx={{ color: 'white', fontSize: 26 }} />
             </Box>
             <Typography variant="h5" fontWeight={800}>EcoWatch</Typography>
           </Box>
