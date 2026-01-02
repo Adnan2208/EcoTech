@@ -20,6 +20,8 @@ connectDB();
 const app = express();
 const server = http.createServer(app);
 
+app.set("trust proxy",1);
+
 // Socket.io setup
 const io = new Server(server, {
   cors: {
@@ -54,6 +56,7 @@ app.use(helmet({
   crossOriginResourcePolicy: { policy: 'cross-origin' },
   crossOriginEmbedderPolicy: false,
 }));
+
 
 // Rate limiting
 const limiter = rateLimit({
