@@ -54,13 +54,14 @@ const Navbar = () => {
 
   const navItems = [
     { label: 'Map', path: '/', icon: <MapIcon /> },
-    { label: 'Report Waste', path: '/report', icon: <AddIcon />, auth: true },
-    { label: 'My Reports', path: '/my-reports', icon: <PersonIcon />, auth: true },
+    { label: 'Report Waste', path: '/report', icon: <AddIcon />, citizen: true },
+    { label: 'My Reports', path: '/my-reports', icon: <PersonIcon />, citizen: true },
     { label: 'Dashboard', path: '/dashboard', icon: <DashboardIcon />, authority: true },
   ];
 
   const filteredNavItems = navItems.filter((item) => {
     if (item.authority) return user && isAuthority();
+    if (item.citizen) return user && !isAuthority();
     if (item.auth) return !!user;
     return true;
   });
@@ -145,52 +146,52 @@ const Navbar = () => {
             </Box>
 
             <Box sx={{ ml: 2, display: 'flex', alignItems: 'center', gap: 1 }}>
-            {user ? (
-              <>
-                <Tooltip title="Account">
-                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                    <Avatar sx={{ bgcolor: '#1b5e20' }}>
-                      {user.name?.charAt(0).toUpperCase()}
-                    </Avatar>
-                  </IconButton>
-                </Tooltip>
-                <Menu
-                  sx={{ mt: '45px' }}
-                  anchorEl={anchorElUser}
-                  anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-                  keepMounted
-                  transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-                  open={Boolean(anchorElUser)}
-                  onClose={handleCloseUserMenu}
+              {user ? (
+                <>
+                  <Tooltip title="Account">
+                    <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                      <Avatar sx={{ bgcolor: '#1b5e20' }}>
+                        {user.name?.charAt(0).toUpperCase()}
+                      </Avatar>
+                    </IconButton>
+                  </Tooltip>
+                  <Menu
+                    sx={{ mt: '45px' }}
+                    anchorEl={anchorElUser}
+                    anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+                    keepMounted
+                    transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+                    open={Boolean(anchorElUser)}
+                    onClose={handleCloseUserMenu}
+                  >
+                    <MenuItem disabled>
+                      <Typography variant="body2" color="text.secondary">
+                        {user.email}
+                      </Typography>
+                    </MenuItem>
+                    <MenuItem disabled>
+                      <Typography variant="caption" color="primary">
+                        {user.role.toUpperCase()}
+                      </Typography>
+                    </MenuItem>
+                    <MenuItem onClick={handleLogout}>
+                      <LogoutIcon sx={{ mr: 1 }} /> Logout
+                    </MenuItem>
+                  </Menu>
+                </>
+              ) : (
+                <Button
+                  component={Link}
+                  to="/login"
+                  color="inherit"
+                  startIcon={<LoginIcon />}
                 >
-                  <MenuItem disabled>
-                    <Typography variant="body2" color="text.secondary">
-                      {user.email}
-                    </Typography>
-                  </MenuItem>
-                  <MenuItem disabled>
-                    <Typography variant="caption" color="primary">
-                      {user.role.toUpperCase()}
-                    </Typography>
-                  </MenuItem>
-                  <MenuItem onClick={handleLogout}>
-                    <LogoutIcon sx={{ mr: 1 }} /> Logout
-                  </MenuItem>
-                </Menu>
-              </>
-            ) : (
-              <Button
-                component={Link}
-                to="/login"
-                color="inherit"
-                startIcon={<LoginIcon />}
-              >
-                Login
-              </Button>
-            )}
-              </Box>
+                  Login
+                </Button>
+              )}
             </Box>
-          </Toolbar>
+          </Box>
+        </Toolbar>
       </Container>
 
       <Drawer
