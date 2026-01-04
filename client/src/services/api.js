@@ -36,4 +36,21 @@ api.interceptors.response.use(
   }
 );
 
+// Waste Detection API methods
+export const wasteDetectionApi = {
+  // Analyze uploaded image
+  analyzeImage: (formData) => api.post('/waste-detection/analyze', formData, {
+    headers: { 'Content-Type': 'multipart/form-data' },
+  }),
+
+  // Analyze images for a specific report
+  analyzeReport: (reportId) => api.post(`/waste-detection/report/${reportId}`),
+
+  // Get detection results for a report
+  getDetectionResults: (reportId) => api.get(`/waste-detection/report/${reportId}`),
+
+  // Get overall detection statistics
+  getDetectionStats: () => api.get('/waste-detection/stats'),
+};
+
 export default api;

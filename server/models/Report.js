@@ -86,6 +86,43 @@ const reportSchema = new mongoose.Schema(
         },
       },
     ],
+    // YOLO waste detection results
+    detectionResults: [
+      {
+        class: {
+          type: String,
+          required: true,
+        },
+        confidence: {
+          type: Number,
+          required: true,
+        },
+        bbox: {
+          x: Number,
+          y: Number,
+          width: Number,
+          height: Number,
+        },
+        imageIndex: {
+          type: Number,
+          default: 0,
+        },
+      },
+    ],
+    detectionSummary: {
+      totalDetections: {
+        type: Number,
+        default: 0,
+      },
+      analyzedAt: {
+        type: Date,
+        default: null,
+      },
+      success: {
+        type: Boolean,
+        default: false,
+      },
+    },
   },
   {
     timestamps: true,

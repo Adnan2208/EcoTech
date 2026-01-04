@@ -13,6 +13,7 @@ const connectDB = require('./config/db');
 const authRoutes = require('./routes/auth');
 const reportRoutes = require('./routes/reports');
 const dashboardRoutes = require('./routes/dashboard');
+const wasteDetectionRoutes = require('./routes/wasteDetection');
 
 // Connect to database
 connectDB();
@@ -20,7 +21,7 @@ connectDB();
 const app = express();
 const server = http.createServer(app);
 
-app.set("trust proxy",1);
+app.set("trust proxy", 1);
 
 // Socket.io setup
 const io = new Server(server, {
@@ -89,6 +90,7 @@ app.get('/api/health', (req, res) => {
 app.use('/api/auth', authRoutes);
 app.use('/api/reports', reportRoutes);
 app.use('/api/dashboard', dashboardRoutes);
+app.use('/api/waste-detection', wasteDetectionRoutes);
 
 // 404 handler
 app.use((req, res, next) => {

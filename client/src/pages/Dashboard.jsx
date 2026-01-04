@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import api from '@/services/api';
+import WasteDetectionPanel from '@/components/WasteDetectionPanel';
 import {
   Container,
   Grid,
@@ -131,7 +132,7 @@ const Dashboard = () => {
       const formData = new FormData();
       formData.append('status', newStatus);
       formData.append('resolutionNotes', resolutionNotes);
-      
+
       resolutionImages.forEach((file) => {
         formData.append('resolutionImages', file);
       });
@@ -212,13 +213,13 @@ const Dashboard = () => {
     fill: CATEGORY_COLORS[name] || '#6b7280',
   }));
 
-  const resolutionRate = stats.totalReports > 0 
-    ? Math.round((stats.statusStats.resolved / stats.totalReports) * 100) 
+  const resolutionRate = stats.totalReports > 0
+    ? Math.round((stats.statusStats.resolved / stats.totalReports) * 100)
     : 0;
 
   const filteredReports = stats.recentReports?.filter(report => {
     const matchesSearch = report.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         report.category.toLowerCase().includes(searchTerm.toLowerCase());
+      report.category.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesStatus = !statusFilter || report.status === statusFilter;
     return matchesSearch && matchesStatus;
   }) || [];
@@ -249,36 +250,36 @@ const Dashboard = () => {
         {/* Stats Cards */}
         <Grid container spacing={3} sx={{ mb: 4 }}>
           {[
-            { 
-              title: 'Total Reports', 
-              value: stats.totalReports, 
+            {
+              title: 'Total Reports',
+              value: stats.totalReports,
               icon: Assignment,
               color: '#3b82f6',
               bgColor: '#eff6ff',
               change: '+12%',
               trend: 'up'
             },
-            { 
-              title: 'Open Issues', 
-              value: stats.statusStats.open, 
+            {
+              title: 'Open Issues',
+              value: stats.statusStats.open,
               icon: Warning,
               color: '#ef4444',
               bgColor: '#fef2f2',
               change: '-5%',
               trend: 'down'
             },
-            { 
-              title: 'In Progress', 
-              value: stats.statusStats['in-progress'], 
+            {
+              title: 'In Progress',
+              value: stats.statusStats['in-progress'],
               icon: Schedule,
               color: '#f59e0b',
               bgColor: '#fffbeb',
               change: '+8%',
               trend: 'up'
             },
-            { 
-              title: 'Resolved', 
-              value: stats.statusStats.resolved, 
+            {
+              title: 'Resolved',
+              value: stats.statusStats.resolved,
               icon: CheckCircle,
               color: '#10b981',
               bgColor: '#f0fdf4',
@@ -417,8 +418,8 @@ const Dashboard = () => {
                       value={100}
                       size={160}
                       thickness={8}
-                      sx={{ 
-                        color: 'grey.200', 
+                      sx={{
+                        color: 'grey.200',
                         position: 'absolute',
                         left: 0,
                         zIndex: -1,
@@ -555,7 +556,7 @@ const Dashboard = () => {
                             size="small"
                             color={
                               report.severity === 'high' ? 'error' :
-                              report.severity === 'medium' ? 'warning' : 'success'
+                                report.severity === 'medium' ? 'warning' : 'success'
                             }
                             sx={{ textTransform: 'capitalize', fontWeight: 500 }}
                           />
@@ -676,6 +677,19 @@ const Dashboard = () => {
                         </ImageListItem>
                       ))}
                     </ImageList>
+                  </Grid>
+                )}
+
+                {/* AI Waste Detection Panel */}
+                {selectedReport.images && selectedReport.images.length > 0 && (
+                  <Grid item xs={12}>
+                    <WasteDetectionPanel
+                      report={selectedReport}
+                      onAnalysisComplete={(data) => {
+                        setSelectedReport(data.report);
+                        fetchStats();
+                      }}
+                    />
                   </Grid>
                 )}
 
